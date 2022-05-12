@@ -5,13 +5,13 @@ from source.view.map.ChunkCanva import ChunkCanva
 from source.view.map.MapFrameThread import MapFrameThread
 
 """
-Classe MapFrame qui gèrte l'interface de la map au centre de l'application
+Classe MapFrame qui gère l'interface de la map au centre de l'application
 """
 
 
 class MapFrame(tkinter.Frame):
     def __init__(self, main_window, width_ratio=0.9, height_ratio=0.9):
-        super().__init__(main_window, highlightbackground="black",  highlightthickness=2)
+        super().__init__(main_window, highlightbackground="black", highlightthickness=2)
         self.main_window = main_window
         self.main_window.update()
         self.grid(row=0, column=0, sticky='ns')
@@ -51,7 +51,7 @@ class MapFrame(tkinter.Frame):
                 self.map_canvas[i].update_chunk_canva(filtered_chunk)
                 return
 
-        # if it doesnt exist, we create it
+        # if it doesn't exist, we create it
         self.map_canvas.append(ChunkCanva(filtered_chunk, self, self.width_canva, self.height_canva))
 
     def update_map_frame(self):
@@ -64,8 +64,8 @@ class MapFrame(tkinter.Frame):
                         if chunk_manager.chunks_list[i].coords[1] <= (self.camera_center_y + self.max_canvas_y):
                             filtered_chunk = FilteredChunk(chunk_manager.chunks_list[i]).filter_chunk_average()
                             self.add_chunk_canva(filtered_chunk)
-                            if chunk_manager.chunks_list[i].coords[0] == -1 and chunk_manager.chunks_list[i].coords[1] == -1:
-                                print(chunk_manager.chunks_list[i])
+                            # if chunk_manager.chunks_list[i].coords[0] == -1 and chunk_manager.chunks_list[i].coords[1] == -1:
+                            #      print(chunk_manager.chunks_list[i])
 
         # create the frame
         if len(self.map_canvas) > 0:

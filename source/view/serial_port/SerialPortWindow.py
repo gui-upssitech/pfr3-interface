@@ -7,7 +7,7 @@ from source.view.Font import Font
 
 
 class SerialPortWindow(tkinter.Tk):
-    def __init__(self, width_window=300, height_window=400):
+    def __init__(self, width_window=250, height_window=300):
         super().__init__()
         self.listbox = None
         self.label_text = tkinter.StringVar()
@@ -19,10 +19,10 @@ class SerialPortWindow(tkinter.Tk):
         self.grid_columnconfigure(0, weight=1)
         self.geometry(str(width_window) + 'x' + str(height_window))
 
-        self.__create_list_serial()
-        self.__create_label()
+        self.create_list_serial()
+        self.create_label()
 
-    def __create_label(self):
+    def create_label(self):
         label = tkinter.Label(self, text="Liste des Serial Ports", font=Font.TITRE.value,background='white')
         label.grid(row=0, column=0)
 
@@ -30,13 +30,14 @@ class SerialPortWindow(tkinter.Tk):
         selected_label = tkinter.Label(self, textvariable=self.label_text, font=Font.SOUS_TITRE.value, background='white')
         selected_label.grid(row=1, column=0)
 
-    def __create_list_serial(self):
-        # list_serial = self.__get_serial_ports()
+    def create_list_serial(self):
+        # get list of serial port available from pc
+        list_serial = self.__get_serial_ports()
 
-        langs = ('COM7', 'COM9', 'COM10', 'C++', 'Python',
-                 'Go', 'JavaScript', 'PHP', 'Swift')
+        # Trash example test
+        langs = ('COM7', 'COM9', 'COM10')
 
-        langs_var = tkinter.StringVar(value=langs)
+        langs_var = tkinter.StringVar(value=list_serial)
 
         self.listbox = tkinter.Listbox(
             self,
@@ -45,7 +46,8 @@ class SerialPortWindow(tkinter.Tk):
 
         self.listbox.grid(
             column=0,
-            row=2
+            row=2,
+            pady=(0,10)
         )
 
         self.listbox.bind('<<ListboxSelect>>', self.items_selected)

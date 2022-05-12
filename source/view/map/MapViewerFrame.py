@@ -1,4 +1,5 @@
 import tkinter
+from source.view.serial_port.SerialPortWindow import SerialPortWindow
 
 """
 Classe MapViewerFrame qui va gérer toute la partie gestion de la map (Humain-map)
@@ -8,6 +9,7 @@ Classe MapViewerFrame qui va gérer toute la partie gestion de la map (Humain-ma
 class MapViewerFrame(tkinter.Frame):
     def __init__(self, main_window, map_frame, width_ratio=0.1, height_ratio=0.45, button_size=50):
         super().__init__(main_window, background='white', highlightbackground="black", highlightthickness=2)
+
         self.main_window = main_window
         self.map_frame = map_frame
         self.button_size = button_size
@@ -29,11 +31,17 @@ class MapViewerFrame(tkinter.Frame):
 
         self.step_scale = None
 
+        self.serial_port_button = None
+
         self.create_view()
 
     def create_view(self):
         self.step_scale = tkinter.Scale(self, orient='horizontal', from_=1, to=5, resolution=1, tickinterval=2,
                                         background="white", bd=0, relief="flat")
+
+        self.serial_port_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
+                                                image=self.left_arrow_image,
+                                                command=lambda: self.serial_port_action())
 
         self.left_arrow_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
                                                 image=self.left_arrow_image,
@@ -61,6 +69,12 @@ class MapViewerFrame(tkinter.Frame):
 
         self.step_scale.grid(row=3, column=0, columnspan=3, sticky='ew', padx=(5, 10), pady=(5, 10))
 
+        self.serial_port_button.grid(row=4, column=0, columnspan=3, sticky='ew', padx=(5, 10), pady=(5, 10))
+
     def update_map_frame(self, x_direction, y_direction):
         self.map_frame.update_camera_center(self.map_frame.camera_center_x + x_direction * self.step_scale.get(),
                                             self.map_frame.camera_center_y + y_direction * self.step_scale.get())
+
+    def serial_port_action(self):
+        port_window = SerialPortWindow()
+        port_window.mainloop()
