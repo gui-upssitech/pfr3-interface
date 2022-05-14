@@ -1,9 +1,7 @@
 from source.model.chunks.Chunk import Chunk
-from source.model.chunks.Pattern import Pattern
+from source.model.chunks.filter.Pattern import Pattern
 
-"""
-Classe FilteredChunk qui est un chunk mais avec un certain filtre appliqué
-"""
+
 class FilteredChunk:
     def __init__(self, chunk):
         self.chunk = chunk
@@ -80,5 +78,13 @@ class FilteredChunk:
         for i in range(self.chunk.size):
             for j in range(self.chunk.size):
                 if self.chunk.chunk[i][j] >= average:
+                    filtered_chunk.increment_case(i, j)
+        return filtered_chunk
+
+    def filter_simple(self):
+        filtered_chunk = Chunk(self.chunk.coords, self.chunk.size)
+        for i in range(self.chunk.size):
+            for j in range(self.chunk.size):
+                if self.chunk.chunk[i][j] > 0:
                     filtered_chunk.increment_case(i, j)
         return filtered_chunk

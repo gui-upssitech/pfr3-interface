@@ -1,9 +1,5 @@
+from math import floor
 from source.model.chunks.Chunk import Chunk
-
-"""
-Classe ChunkManager qui va stocker et gérer tous les chunks présent sur la map.
-IMPORTANT : Cette classe est un singleton !
-"""
 
 
 def singleton_dec(class_):
@@ -24,12 +20,8 @@ class ChunkManager:
         self.chunks_list = []
 
     def increment_case(self, x, y):
-        (xChunk, yChunk) = x // self.size, y // self.size
-        self.get_chunk(xChunk, yChunk).increment_case(x - self.size * xChunk, y - self.size * yChunk)
-
-    def create_empty_chunk(self, xChunk, yChunk):
-        chunk = Chunk((xChunk, yChunk), self.size)
-        self.chunks_list.append(chunk)
+        (xChunk, yChunk) = floor(x / self.size), floor(y / self.size)
+        self.get_chunk(xChunk, yChunk).increment_case(x % self.size, y % self.size)
 
     def get_chunk(self, xChunk, yChunk):
         for chunk in self.chunks_list:

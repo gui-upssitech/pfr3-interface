@@ -6,5 +6,6 @@ class MainWindow(tkinter.Tk):
         super().__init__()
         self.resizable(width=False, height=False)
         self.title('BT-YT')
-        self.configure(background='white')
+        self.configure(background='#303041')
         self.geometry(str(width_window) + 'x' + str(height_window))
+        self.update()

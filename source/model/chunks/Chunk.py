@@ -1,9 +1,3 @@
-"""
-Classe Chunk qui correspond à un morceau de Map selon des coordonnées
-Concept insipré directement du Minecraft
-"""
-
-
 class Chunk:
     def __init__(self, coords, size=100):
         self.size = size
