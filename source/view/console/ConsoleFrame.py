@@ -1,11 +1,12 @@
 import tkinter
 from source.control.DebugController import DebugController
+from source.model.chunks.Color import Color
 
 
 class ConsoleFrame(tkinter.Frame):
     def __init__(self, main_window, width_ratio=0.755, height_ratio=0.2):
         # super class constructor
-        super().__init__(main_window, background='white', highlightbackground="black", highlightthickness=2)
+        super().__init__(main_window, background=Color.BACKGROUND.value, highlightbackground="black", highlightthickness=2)
 
         # get main frame attribute
         self.main_window = main_window

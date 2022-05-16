@@ -1,4 +1,5 @@
 import tkinter
+from source.model.chunks.Color import Color
 
 
 class MainWindow(tkinter.Tk):
@@ -6,6 +7,6 @@ class MainWindow(tkinter.Tk):
         super().__init__()
         self.resizable(width=False, height=False)
         self.title('BT-YT')
-        self.configure(background='#303041')
+        self.configure(background=Color.BACKGROUND.value)
         self.geometry(str(width_window) + 'x' + str(height_window))
         self.update()

@@ -1,4 +1,5 @@
 import tkinter
+from source.model.chunks.Color import Color
 
 """
 Classe MapViewerFrame qui va gérer toute la partie gestion de la map (Humain-map)
@@ -45,7 +46,9 @@ class MapViewerFrame(tkinter.Frame):
 
     def create_view(self):
         self.step_scale = tkinter.Scale(self, orient='horizontal', from_=1, to=5, resolution=1, tickinterval=2,
-                                        background="white", bd=0, relief="flat")
+                                        background=Color.BACKGROUND.value,
+                                        fg=Color.WHITE.value,
+                                        bd=0, relief="flat")
 
         # create all buttons
         self.left_arrow_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
@@ -61,8 +64,9 @@ class MapViewerFrame(tkinter.Frame):
                                                 command=lambda: self.update_map_frame(0, -1))
 
         self.home_button = tkinter.Button(self, width=self.button_size, height=self.button_size, image=self.home_image,
-                                          bg='#FDD698', )
-        self.robot_position_button = tkinter.Button(self, width=self.button_size, height=self.button_size, bg='#FDD698',
+                                          bg=Color.ORANGE.value)
+        self.robot_position_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
+                                                    bg=Color.ORANGE.value,
                                                     image=self.robot_position_image)
 
         # grid all the buttons

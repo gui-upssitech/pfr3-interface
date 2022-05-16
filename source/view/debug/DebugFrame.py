@@ -2,12 +2,14 @@ import tkinter
 from source.control.DebugController import DebugController
 from source.view.debug.DebugMode import DebugMode
 from source.view.Font import Font
+from source.model.chunks.Color import Color
 
 
 class DebugFrame(tkinter.Frame):
     def __init__(self, main_window, width_ratio=0.1, height_ratio=0.5):
         # super class constructor
-        super().__init__(main_window, background='white', highlightbackground="black", highlightthickness=2)
+        super().__init__(main_window, background=Color.BACKGROUND.value, highlightbackground="black",
+                         highlightthickness=2)
 
         # get main frame attribute
         self.main_window = main_window
@@ -29,7 +31,8 @@ class DebugFrame(tkinter.Frame):
         size = self.winfo_width()
         label = tkinter.Label(self, text="Liste des modes de debug",
                               font=Font.SOUS_TITRE.value,
-                              background='white',
+                              background=Color.BACKGROUND.value,
+                              fg=Color.WHITE.value,
                               wraplengt=size)
 
         label.pack(anchor=tkinter.CENTER, pady=(0, 15))
@@ -39,12 +42,17 @@ class DebugFrame(tkinter.Frame):
         self.varGr = tkinter.StringVar()
 
         for i in range(len(etiqs)):
-            b = tkinter.Radiobutton(self, background="white",
+            b = tkinter.Radiobutton(self,
                                     variable=self.varGr,
                                     text=etiqs[i],
                                     value=vals[i],
                                     command=self.__add_debug_mode,
-                                    tristatevalue=0)
+                                    tristatevalue=0,
+                                    activebackground=Color.BACKGROUND.value,
+                                    activeforeground=Color.WHITE.value,
+                                    background=Color.BACKGROUND.value,
+                                    selectcolor=Color.BACKGROUND.value,
+                                    fg=Color.WHITE.value)
             b.pack(anchor=tkinter.W)
 
     def __add_debug_mode(self):

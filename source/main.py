@@ -30,7 +30,7 @@ def main():
     ConsoleFrame(main_window)
 
     # serial
-    serial_communication = SerialManager('COM7')
+    serial_communication = SerialManager('COM5')
     serial_communication.start()
 
     # main loop

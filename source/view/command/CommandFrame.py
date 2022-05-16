@@ -1,4 +1,5 @@
 import tkinter
+from source.model.chunks.Color import Color
 
 """
 Classe MapViewerFrame qui va gérer toute la partie gestion de la map (Humain-map)
@@ -24,62 +25,41 @@ class CommandFrame(tkinter.Frame):
         self.pack_propagate(False)
 
         # set widgets
-        self.left_arrow_button = None
-        self.left_arrow_image = tkinter.PhotoImage(file='./assets/arrow-left.png')
-        self.right_arrow_button = None
-        self.right_arrow_image = tkinter.PhotoImage(file='./assets/arrow-right.png')
-        self.up_arrow_button = None
-        self.up_arrow_image = tkinter.PhotoImage(file='./assets/arrow-up.png')
-        self.down_arrow_button = None
-        self.down_arrow_image = tkinter.PhotoImage(file='./assets/arrow-down.png')
+        self.mode_button = None
+        self.button_image = tkinter.PhotoImage(file='./assets/user.png')
+        self.is_manual = False
 
-        self.home_button = None
-        self.home_image = tkinter.PhotoImage(file='./assets/home.png')
-        self.robot_position_button = None
-        self.robot_position_image = tkinter.PhotoImage(file='./assets/gitlab.png')
-
-        self.step_scale = None
+        self.label = None
+        self.label_text = tkinter.StringVar()
+        self.label_text.set("Mode Automatique")
 
         # create the view
         self.create_view()
 
     def create_view(self):
-        self.step_scale = tkinter.Scale(self, orient='horizontal', from_=1, to=5, resolution=1, tickinterval=2,
-                                        background="white", bd=0, relief="flat")
-
         # create all buttons
-        self.left_arrow_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
-                                                image=self.left_arrow_image,
-                                                command=lambda: self.update_map_frame(-1, 0))
-        self.right_arrow_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
-                                                 image=self.right_arrow_image,
-                                                 command=lambda: self.update_map_frame(1, 0))
-        self.up_arrow_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
-                                              image=self.up_arrow_image, command=lambda: self.update_map_frame(0, 1))
-        self.down_arrow_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
-                                                image=self.down_arrow_image,
-                                                command=lambda: self.update_map_frame(0, -1))
+        self.mode_button = tkinter.Button(self, width=self.button_size, height=self.button_size,
+                                          image=self.button_image, bg=Color.ORANGE.value,
+                                          command=self.__set_robot_mode)
 
-        self.home_button = tkinter.Button(self, width=self.button_size, height=self.button_size, image=self.home_image,
-                                          bg='#FDD698', )
-        self.robot_position_button = tkinter.Button(self, width=self.button_size, height=self.button_size, bg='#FDD698',
-                                                    image=self.robot_position_image)
+        self.label = tkinter.Label(self, textvariable=self.label_text, bg=Color.BACKGROUND.value,
+                                   foreground=Color.WHITE.value)
 
         # grid all the buttons
-        self.left_arrow_button.grid(row=1, column=0, padx=(self.paddingx, self.paddingx),
-                                    pady=(self.paddingy, self.paddingy))
-        self.right_arrow_button.grid(row=1, column=2, padx=(self.paddingx, self.paddingx),
-                                     pady=(self.paddingy, self.paddingy))
-        self.up_arrow_button.grid(row=0, column=1, padx=(self.paddingx, self.paddingx),
-                                  pady=(self.paddingy, self.paddingy))
-        self.down_arrow_button.grid(row=1, column=1, padx=(self.paddingx, self.paddingx),
-                                    pady=(self.paddingy, self.paddingy))
-        self.home_button.grid(row=0, column=0, padx=(self.paddingx, self.paddingx), pady=(self.paddingy, self.paddingy))
-        self.robot_position_button.grid(row=0, column=2, padx=(self.paddingx, self.paddingx),
-                                        pady=(self.paddingy, self.paddingy))
-        self.step_scale.grid(row=3, column=0, columnspan=3, sticky='ew', padx=(self.paddingx / 2, self.paddingx),
-                             pady=(self.paddingy / 2, self.paddingy))
+        self.mode_button.grid(row=1, column=0, padx=(self.paddingx, self.paddingx),
+                              pady=(self.paddingy, self.paddingy))
+        self.label.grid(row=1, column=1, padx=(self.paddingx, self.paddingx),
+                        pady=(self.paddingy, self.paddingy))
 
-    def update_map_frame(self, x_direction, y_direction):
-        self.map_frame.update_camera_center(self.map_frame.camera_center_x + x_direction * self.step_scale.get(),
-                                            self.map_frame.camera_center_y + y_direction * self.step_scale.get())
+    def __set_robot_mode(self):
+        if self.is_manual:
+            self.is_manual = False
+            self.button_image = tkinter.PhotoImage(file='./assets/user.png')
+            self.mode_button.configure(image=self.button_image)
+            self.label_text.set("Mode Automatique")
+
+        else:
+            self.is_manual = True
+            self.button_image = tkinter.PhotoImage(file='./assets/user-x.png')
+            self.mode_button.configure(image=self.button_image)
+            self.label_text.set("Mode Manuel          ")

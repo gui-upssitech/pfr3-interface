@@ -20,7 +20,7 @@ def __hough_chunk_filter(chunk, acc_mat):
 
     # iterate the acc_mat
     for key in acc_mat:
-        if len(acc_mat[key]) > 50: # TODO random value
+        if len(acc_mat[key]) > 30: # TODO random value
             for coord in acc_mat[key]:
                 hough_chunk.chunk[coord[0]][coord[1]] = 1
 
