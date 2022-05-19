@@ -6,7 +6,9 @@ from source.model.communication.SerialThread import SerialThread
 Classe SerialManager qui gère la lecture des données du port. 
 Ces données sont envoyées directement par l'arduino par bluetooth
 """
-class SerialManager():
+
+
+class SerialManager:
     def __init__(self, port, baud_rate=250000):
         # serial communication initalization
         try:

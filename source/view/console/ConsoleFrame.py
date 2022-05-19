@@ -16,7 +16,7 @@ class ConsoleFrame(tkinter.Frame):
         self.configure(width=width_ratio * main_window.winfo_width(), height=height_ratio * main_window.winfo_height())
         self.grid_propagate(False)
 
-        # attributs
+        # attributes
         self.button = None
         self.button_size = 25
         self.button_image = None
