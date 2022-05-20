@@ -1,6 +1,3 @@
-import time
-
-from source.model.communication.SerialManager import SerialManager
 from source.view.MainWindow import MainWindow
 from source.view.debug.DebugFrame import DebugFrame
 from source.view.map.MapFrame import MapFrame
@@ -28,10 +25,6 @@ def main():
 
     # console frame
     ConsoleFrame(main_window)
-
-    # serial
-    serial_communication = SerialManager('COM5')
-    serial_communication.start()
 
     # main loop
     main_window.mainloop()
