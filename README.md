@@ -1,3 +1,3 @@
 # pfr3-interface - ROBOT INTERFACE
 
-Uwu
+Application Python qui permet de lire les données du Lidar
